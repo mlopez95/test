@@ -14,7 +14,7 @@ public class UserDTO {
     private String username;
     @ApiModelProperty(value = "Identificador del email", example = "mchelo.lopez@hotmail.com")
     private String email;
-    @ApiModelProperty(value = "Identificador del celular", example = "mchelo.lopez@hotmail.com")
+    @ApiModelProperty(value = "Identificador del celular", example = "09713665456")
     private String phone;
     @ApiModelProperty(value = "Identificador del website", example = "mchelo.lopez@hotmail.com")
     private String website;

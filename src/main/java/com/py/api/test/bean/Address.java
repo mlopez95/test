@@ -14,7 +14,7 @@ public class Address {
     private String city;
     @ApiModelProperty(value = "Identificador del codigo Postal", example = "00")
     private String zipcode;
-    @ApiModelProperty(value = "Identificador de la ubicacion", example = "00")
+    @ApiModelProperty(value = "Identificador de la ubicacion")
     private Geo geo;
 
     public Geo getGeo() {

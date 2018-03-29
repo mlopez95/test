@@ -26,11 +26,16 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User updateUser(String id,UserDTO user) {
-        return APIResolver.doPut(Constans.URL_REST_FAKE,"/users/"+id,User.class,null);
+        return APIResolver.doPut(Constans.URL_REST_FAKE,"/users/"+id,user,User.class);
+    }
+
+    @Override
+    public User creatUser(UserDTO user) {
+        return APIResolver.doPost(Constans.URL_REST_FAKE,"/users/",user,User.class);
     }
 
     @Override
     public void deleteUser(String id) {
-        APIResolver.doDelete(Constans.URL_REST_FAKE,"/users/"+id,null,null);
+        APIResolver.doDelete(Constans.URL_REST_FAKE,"/users/"+id,Void.class);
     }
 }

@@ -147,4 +147,24 @@ public class APIResolver {
 
         return response.getBody();
     }
+
+    public static <T, E> T doPost(String apiCode, String endPoint, E requestObject, Class<T> responseType,HttpHeaders headers) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = apiCode + endPoint;
+
+
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        HttpEntity<E> entity = new HttpEntity<>(requestObject, headers);
+
+        ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.POST, entity, responseType);
+
+        return response.getBody();
+    }
+
+    public static <T, E> T doPost(String apiCode, String endPoint, E requestObject, Class<T> responseType) {
+        HttpHeaders headers = new HttpHeaders();
+        return doPost(apiCode, endPoint, requestObject, responseType, headers);
+
+    }
 }

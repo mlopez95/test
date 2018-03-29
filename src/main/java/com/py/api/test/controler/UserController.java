@@ -19,7 +19,6 @@ import java.util.List;
  * Created by mlopez on 28/03/2018
  */
 @RestController
-@RequestMapping("/user")
 @Api(value = "UserController", tags = "API User")
 public class UserController {
 
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "User", notes = "Servicio utilizado para obtener un usuario existente a partir de su ID", nickname = "getUser")
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getUser(@PathVariable("id") String id) {
         logger.info("Method>>>>>>> /user/"+id+" -- getUser()");
         User user = service.getUser(id);
@@ -57,7 +56,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "User", notes = "Servicio utilizado para obtener un usuario existente a partir de su ID", nickname = "getUser")
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@PathVariable("id") String id,@RequestBody UserDTO user) {
         logger.info("Method>>>>>>> /user/"+id+" -- updateUser()");
         logger.info(" Nuevos datos: "+user);
@@ -65,21 +64,36 @@ public class UserController {
         logger.info("Respuesta>>>>>> "+newUser);
 
         if (user==null) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity(HttpStatus.NOT_MODIFIED);
         }
 
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
     @ApiOperation(value = "User", notes = "Servicio utilizado para obtener un usuario existente a partir de su ID", nickname = "getUser")
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUser(@PathVariable("id") String id) {
         logger.info("Method>>>>>>> /user/"+id+" -- deleteUser()");
         service.deleteUser(id);
         logger.info("Respuesta>>>>>> Se borro correctamente");
 
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @ApiOperation(value = "User", notes = "Servicio utilizado para obtener un usuario existente a partir de su ID", nickname = "getUser")
+    @RequestMapping(value = "/users/", method = RequestMethod.POST)
+    public ResponseEntity<User> createUser(@RequestBody UserDTO user) {
+        logger.info("Method>>>>>>> /user/ -- createUser()");
+        logger.info(" Nuevos user: "+user);
+        User newUser = service.creatUser(user);
+        logger.info("Respuesta>>>>>> "+newUser);
+
+        if (user==null) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
 }
